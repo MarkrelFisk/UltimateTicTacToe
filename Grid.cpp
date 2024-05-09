@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Grid.h"
 
+char getSymbol(int gridValue);
+
 bool Grid::changeValueAtIdx(const int idx, const int val) {
     if (gridValues[idx] == 0) { 
         gridValues[idx] = val;
@@ -52,7 +54,13 @@ void Grid::printState() {
     std::cout << "" << std::endl;
     for (int i = 0; i < 9; i+=3) {
         for (int j = 0; j < 3; ++j) {
-            std::cout << gridValues[i + j] << " ";
+            char val = ' ';
+            if (gridValues[i + j] == 1) {
+                val = 'X';
+            } else if (gridValues[i + j] == 2) {
+                val = 'O';
+            }
+            std::cout << val << " ";
         }
         std::cout << std::endl;
     }
@@ -61,5 +69,15 @@ void Grid::printState() {
 
 void Grid::printLine(const int idxLine) {
     int line = idxLine * 3;
-    std::cout << gridValues[line] << " " << gridValues[line + 1] << " " << gridValues[line + 2];
+    std::cout << getSymbol(gridValues[line]) << " " << getSymbol(gridValues[line + 1]) << " " << getSymbol(gridValues[line + 2]);
+}
+
+char getSymbol(const int gridValue) {
+    char val = ' ';
+    if (gridValue == 1) {
+        val = 'X';
+    } else if (gridValue == 2) {
+        val = 'O';
+    }
+    return val;
 }

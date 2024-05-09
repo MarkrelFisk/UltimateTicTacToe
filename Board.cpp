@@ -1,7 +1,7 @@
 #include <iostream>
-#include "TicTacToe.h"
+#include "Board.h"
 
-bool TicTacToe::changeValue(const int gridIdx, const int idx, const int val) {
+bool Board::changeValue(const int gridIdx, const int idx, const int val) {
     Grid* gridPtr = grid[gridIdx];
     if (gridPtr->getWinState() != 0) return false; 
     if (gridPtr->changeValueAtIdx(idx, val)) {
@@ -12,7 +12,7 @@ bool TicTacToe::changeValue(const int gridIdx, const int idx, const int val) {
     return false;
 }
 
-void TicTacToe::printState() {
+void Board::printState() {
     for (int i = 0; i < 3; ++i) {
         grid[0]->printLine(i);
         std::cout << " | ";
@@ -45,7 +45,7 @@ void TicTacToe::printState() {
     }
 }
 
-bool TicTacToe::checkWinCondition(const int val) {
+bool Board::checkWinCondition(const int val) {
     if ( 
     (grid[0]->getWinState() == val && grid[1]->getWinState() == val && grid[2]->getWinState() == val) || 
     (grid[0]->getWinState() == val && grid[3]->getWinState() == val && grid[6]->getWinState() == val) ||
@@ -62,7 +62,7 @@ bool TicTacToe::checkWinCondition(const int val) {
     return false;
 }
 
-bool TicTacToe::checkGridLegal(const int gridIdx) {
+bool Board::checkGridLegal(const int gridIdx) {
     if (grid[gridIdx]->getWinState() == 0) {
         return true;
     }

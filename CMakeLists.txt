@@ -9,5 +9,5 @@ add_executable(App
                 main.cpp
                 Grid.cpp
                 Grid.h
-                TicTacToe.cpp
-                TicTacToe.h)
+                Board.cpp
+                Board.h)

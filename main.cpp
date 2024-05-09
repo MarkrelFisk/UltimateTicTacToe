@@ -1,53 +1,61 @@
 #include <iostream>
 
-#include "TicTacToe.h"
+#include "Board.h"
 
 // forward declare
-int playloop(int player, TicTacToe* board, int grid);
+void playloop(int player, Board* board);
 
 int main(int argc, char** argv) {
-    TicTacToe* board = new TicTacToe;
+    Board* board = new Board;
 
     board->printState();
     
-    int grid;
+    int gridIdx;
     std::cout << "player 1 choose start grid: ";
-    std::cin >> grid;
+    std::cin >> gridIdx;
+
+    board->setActiveGrid(gridIdx);
 
     for (;;) {
-        grid = playloop(1, board, grid);
+
+        playloop(1, board);
         
         if (board->checkWinCondition(1)) {
             std::cout << "player 1 is the winner" << std::endl;
             break;
         }
 
-        grid = playloop(2, board, grid);
+        std::cout << "active grid: " << board->getActiveGrid() << std::endl;
+
+        playloop(2, board);
         
         if (board->checkWinCondition(2)) {
             std::cout << "player 2 is the winner" << std::endl;
             break;
         }
+
+        std::cout << "active grid: " << board->getActiveGrid() << std::endl;
     }
 
 }
 
-int playloop(const int player, TicTacToe* board, int grid) {
+void playloop(const int player, Board* board) {
     bool legalMove = false;
-    bool legalGrid = board->checkGridLegal(grid);
+    int gridIdx = board->getActiveGrid();
+    bool legalGrid = board->checkGridLegal(gridIdx);
     int idx;
 
     while (!legalGrid) {
         std::cout << "Player " << player << " choose new grid:" << std::endl;
-        std::cin >> grid;
-        legalGrid = board->checkGridLegal(grid);
+        std::cin >> gridIdx;
+        legalGrid = board->checkGridLegal(gridIdx);
     }
 
     while (!legalMove) {
         std::cout << "player " << player << " move:" << std::endl;
         std::cin >> idx;
 
-        legalMove = board->changeValue(grid, idx, player);
+        legalMove = board->changeValue(gridIdx, idx, player);
 
         if (!legalMove) {
             std::cout << "Illegal move" << std::endl;
@@ -55,5 +63,5 @@ int playloop(const int player, TicTacToe* board, int grid) {
         board->printState();
 
     }
-    return idx;
+    board->setActiveGrid(idx);
 }
