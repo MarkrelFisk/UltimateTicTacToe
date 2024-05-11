@@ -47,6 +47,10 @@ void Grid::checkWinCondition(const int val) {
         }
 
         winState = val;
+    } else if (gridValues[0] != 0 && gridValues[1] != 0 && gridValues[2] != 0 &&
+               gridValues[3] != 0 && gridValues[4] != 0 && gridValues[5] != 0 &&
+               gridValues[6] != 0 && gridValues[7] != 0 && gridValues[8] != 0) {
+        winState = 3;
     }
 }
 

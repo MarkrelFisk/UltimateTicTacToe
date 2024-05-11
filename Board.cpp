@@ -68,3 +68,19 @@ bool Board::checkGridLegal(const int gridIdx) {
     }
     return false;
 }
+
+bool Board::checkIfTied() {
+
+    int sum = 0;
+    for (int i = 0; i < 9; ++i) {
+        if (grid[i]->getWinState() == 0) {
+            sum += 1;
+        }
+    }
+
+    if (sum < 3) {
+        return true;
+    }
+
+    return false;
+}
